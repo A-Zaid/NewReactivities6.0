@@ -15,6 +15,7 @@ interface IProps {
   closeForm: () => void;
   handleCreateOrEdit:(activity: Activity) => void;
   handleDelete: (id: string) => void;
+  submitting : boolean;
 }
 export default function ActivityDashboard({
   activities,
@@ -25,12 +26,18 @@ export default function ActivityDashboard({
   openForm,
   closeForm,
   handleCreateOrEdit,
-  handleDelete
+  handleDelete,
+  submitting
 }: IProps) {
   return (
     <Grid>
       <Grid.Column width="10">
-        <ActivityList activities={activities} selectActivity={selectActivity} handleDelete={handleDelete} />
+        <ActivityList 
+          activities={activities} 
+          selectActivity={selectActivity} 
+          handleDelete={handleDelete} 
+          submitting = {submitting}
+          />
       </Grid.Column>
       <Grid.Column width="6">
         {selectedActivity && !editMode && (
@@ -41,7 +48,12 @@ export default function ActivityDashboard({
           />
         )}
         {editMode && 
-        <ActivityForm closeForm={closeForm} activity={selectedActivity} handleCreateOrEdit={handleCreateOrEdit}/>
+        <ActivityForm 
+          closeForm={closeForm} 
+          activity={selectedActivity} 
+          handleCreateOrEdit={handleCreateOrEdit}
+          submitting = {submitting}
+          />
         }
       </Grid.Column>
     </Grid>
